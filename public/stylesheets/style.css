@@ -33,6 +33,27 @@ td {
 
 }
 
+.title {
+	margin: 4%;
+	text-align: center;
+}
+
+.menu__wrapper {
+	text-align: center;
+	padding: 4%;
+}
+
+.menu__button {
+	border: 1px solid #000;
+	text-decoration: none;
+	padding: 4%;
+	color: cadetblue;
+}
+
+.menu__button:hover {
+	background: bisque;
+}
+
 .user-form__wrapper {
 	width: 23%;
 	margin: 2% auto;

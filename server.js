@@ -8,6 +8,7 @@ var exphbs = require('express-handlebars');
 var db = require('./db.js');
 var fs = require('fs');
 var indexTmpl = require('./db/index-template.json');
+var usersTmpl = require('./db/users.json');
 
 app.engine('handlebars', exphbs({defaultLayout: 'index'}));
 app.set('view engine', 'handlebars');
@@ -26,7 +27,29 @@ app.use(express.static(__dirname + '/public'));
 // });
 
 app.get('/', function(req, res) {
+    res.render('form')
+});
+
+app.get('/add-user', function(req, res) {
     res.render('form', indexTmpl)
+});
+
+app.get('/users', function(req, res) {
+    db.read(function (data) {
+        var users = {"table__row":data};
+
+        for (var i = 0; i <= data.lenght; i++) {
+            users.name = data[i].name;
+            users.surname = data[i].surname;
+            users.age = data[i].age;
+        }
+
+        // data is an array with objects of users
+        // console.log(data);
+        // users is an object with property "table__row" which value is [data]
+        // console.log(users);
+        res.render('users', users)
+    });
 });
 
 app.post('/', function(req, res) {
@@ -40,9 +63,7 @@ app.post('/', function(req, res) {
 
         console.log(tableUsers);
         db.write(JSON.stringify(tableUsers), function () {
-            // res.redirect('/');
-            res.render('form', indexTmpl);
-            res.render('users', tableUsers);
+            res.redirect('/users');
         });
     });
 });

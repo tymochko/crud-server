@@ -4,11 +4,5 @@
     "surname": "Surname",
     "age": "Age",
     "button": "Add user"
-  },
-  "table__header": {
-    "name": "User name",
-    "surname": "Surname",
-    "age": "Age",
-    "action": "Action"
   }
 }
