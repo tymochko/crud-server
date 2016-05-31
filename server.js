@@ -68,6 +68,52 @@ app.post('/', function(req, res) {
     });
 });
 
+app.get('/users/edit-user/:id', function(req, res) {
+    var userId = req.params.id;
+    db.read(function (data) {
+        var editUser = data[userId-1];
+        editUser.id = userId;
+
+        res.render('edit-user', {"user__form":editUser});
+    });
+});
+
+app.post('/users/edit-user/:id', function (req, res) {
+    var userId = req.params.id;
+    console.log(userId);
+    db.read ( function(data) {
+        var tableUsers = data;
+        console.log(tableUsers);
+        console.log(tableUsers[userId-1]);
+        tableUsers[userId-1] = {
+            name: req.body.firstname,
+            surname: req.body.lastname,
+            age: req.body.age
+        };
+
+        db.write (JSON.stringify(tableUsers), function () {
+            res.redirect('/users');
+        });
+    });
+});
+
+// delete a user
+app.get('/users/delete/:id', function (req, res) {
+    var userId = req.params.id;
+    console.log(userId);
+    db.read ( function(data) {
+        console.log(data);
+        console.log(data[userId]); // currently shows undefined
+        var tableUsers = data;
+        console.log(tableUsers);
+        console.log(tableUsers[userId - 1]); // currently shows undefined
+        tableUsers.splice(userId-1, 1);
+
+        db.write ( JSON.stringify(tableUsers),function() {
+            res.redirect('/users');
+        });
+    });
+});
 
 app.listen(config.port, function () {
     console.log('Server listening on: http://localhost:%s', config.port);

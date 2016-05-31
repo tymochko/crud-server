@@ -1,0 +1,10 @@
+<div class="user-form__wrapper">
+    <form class="user-form" action="/users/edit-user/3" method="post">
+        {{#user__form}}
+            <input class="user-form__input" type="text" name="name" placeholder="{{name}}" required>
+            <input class="user-form__input" type="text" name="surname" placeholder="{{surname}}" required>
+            <input class="user-form__input" type="text" name="age" placeholder="{{age}}" required>
+            <input class="user-form__input" type="submit" value="Save">
+        {{/user__form}}
+    </form>
+</div>
