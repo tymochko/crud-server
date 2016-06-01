@@ -9,15 +9,13 @@
         </tr>
         {{#each table__row}}
         <tr class="table__row">
-            <form class="table__form" method="get" action="/">
                 <td class="table__cell">{{name}}</td>
                 <td class="table__cell">{{surname}}</td>
                 <td class="table__cell">{{age}}</td>
                 <td class="table__cell">
-                    <a href="/users/edit-user/3">Edit</a>
-                    <a href="/users/delete/:3">Delete</a>
+                    <a href="/users/edit-user/{{age}}">Edit</a>
+                    <a href="/users/delete/{{age}}">Delete</a>
                 </td>
-            </form>
         </tr>
         {{/each}}
     </table>

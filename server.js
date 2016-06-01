@@ -98,20 +98,21 @@ app.post('/users/edit-user/:id', function (req, res) {
 });
 
 // delete a user
-app.get('/users/delete/:id', function (req, res) {
-    var userId = req.params.id;
-    console.log(userId);
+app.get('/users/delete/:age', function (req, res) {
+    var userAge = req.params.age;
     db.read ( function(data) {
-        console.log(data);
-        console.log(data[userId]); // currently shows undefined
-        var tableUsers = data;
-        console.log(tableUsers);
-        console.log(tableUsers[userId - 1]); // currently shows undefined
-        tableUsers.splice(userId-1, 1);
+        for (var i = 0; i < data.length; i++) {
+            if(data[i].age === userAge) {
+                var currentUser = i;
 
-        db.write ( JSON.stringify(tableUsers),function() {
-            res.redirect('/users');
-        });
+                data.splice(currentUser, 1);
+
+                db.write ( JSON.stringify(data),function() {
+                    res.redirect('/users');
+                });
+            }
+        }
+
     });
 });
 
